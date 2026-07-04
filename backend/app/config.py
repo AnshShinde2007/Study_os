@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     github_client_secret: str | None = None
     session_secret: str = "change-me-too"
     cognee_enabled: bool = True
+    rate_limit_per_minute: int = 100
     cognee_dataset_prefix: str = "studyos"
     db_provider: str = "postgres"
     db_name: str = "cognee"

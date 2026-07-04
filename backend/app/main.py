@@ -14,10 +14,12 @@ from .adaptive_routes import router as adaptive_router
 from .cognee.hackathon_routes import router as hackathon_router
 from .cognee.hackathon_memory_routes import router as memory_tag_router
 from .email_routes import router as email_router
+from .rate_limiter import RateLimitingMiddleware
 
 app = FastAPI(title="StudyOS API", version="1.0.0")
 app.add_middleware(SessionMiddleware, secret_key=settings.session_secret, https_only=False, same_site="lax")
 app.add_middleware(CORSMiddleware, allow_origins=settings.allowed_origins, allow_credentials=True, allow_methods=["*"], allow_headers=["*"], expose_headers=["Content-Range"])
+app.add_middleware(RateLimitingMiddleware)
 app.include_router(auth_router); app.include_router(rest_router); app.include_router(storage_router); app.include_router(functions_router)
 app.include_router(memory_router)
 app.include_router(analytics_router)
